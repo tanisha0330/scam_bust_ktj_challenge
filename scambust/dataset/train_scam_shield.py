@@ -7,21 +7,17 @@ import os
 import pickle  # Model save karne ke liye
 
 # ---------------------------------------------------------
-# INSTRUCTIONS (Hindi mein):
-# 1. Terminal open karein aur likhein: pip install pandas scikit-learn
-# 2. Phir code run karein: python train_scam_shield.py
-# ---------------------------------------------------------
-
-# ---------------------------------------------------------
-# STEP 1: DATA LOAD KARNA
+# INSTRUCTIONS
+# 1.  pip install pandas scikit-learn
+# 2.  python train_scam_shield.py
+# 
+# STEP 1: DATA LOADING
 # ---------------------------------------------------------
 
 file_name = "public_sms.csv"
 
-# Check karte hain ki kya aapne dataset download karke folder mein rakha hai?
 if os.path.exists(file_name):
-    print(f"✅ Asli file '{file_name}' mil gayi! Data wahin se load ho raha hai...")
-    # Asli file se data load karna
+    print(f"'{file_name}' Found.")
     df = pd.read_csv(file_name)
     
     # NOTE: Agar aapki csv file mein columns ke naam alag hain, toh rename karein.
@@ -29,8 +25,7 @@ if os.path.exists(file_name):
     # df = df.rename(columns={'v2': 'message_text', 'v1': 'is_scam'})
 
 else:
-    print("⚠️ File nahi mili. Koi baat nahi! Hum 'Mock Data' use kar rahe hain seekhne ke liye.")
-    
+    print("file not found !")
     csv_data = """sms_id,message_text,is_scam
 SMS001,TRAI verification pending. Confirm details by calling +91-98728-31517.,1
 SMS002,Address incomplete. Reschedule delivery: https://rebrand.ly/GdfOiZ6 Jaldi karo.,1
@@ -55,20 +50,19 @@ SMS020,Earn ₹100000/day. Join VIP group using https://bit.ly,1
 """
     df = pd.read_csv(io.StringIO(csv_data))
 
-print("--- Data ki pehli 5 lines ---")
 print(df.head())
 print(f"\nTotal messages loaded: {len(df)}")
 
 # ---------------------------------------------------------
-# STEP 2: MODEL TRAINING (Machine ko sikhana)
+# STEP 2: MODEL TRAINING 
 # ---------------------------------------------------------
 
 if 'message_text' not in df.columns:
-    print("\n❌ Error: CSV file mein 'message_text' column nahi mila.")
-    # Hack: Agar column ka naam kuch aur hai, toh hum pehla text column dhoond lete hain
+    print("\nError : 'message_text' column not found")
+    # if col has some different name, trying  to find it
     text_cols = [col for col in df.columns if 'text' in col.lower() or 'msg' in col.lower() or 'message' in col.lower()]
     if text_cols:
-        print(f"Shayad aapka column '{text_cols[0]}' hai. Hum ise use kar rahe hain.")
+        print(f"your column can be  '{text_cols[0]}'")
         X = df[text_cols[0]]
     else:
         print("Column nahi mila. Code band ho raha hai.")
@@ -82,11 +76,11 @@ if 'is_scam' in df.columns:
 elif 'label' in df.columns:
     y = df['label']
 else:
-    print("Target column (is_scam/label) nahi mila.")
+    print("Target column not found.")
     exit()
 
-print("\n🤖 Model training shuru ho rahi hai...")
 
+# training the model
 model = make_pipeline(CountVectorizer(), MultinomialNB())
 model.fit(X, y)
 print("✅ Model training complete!")
@@ -97,8 +91,7 @@ print("✅ Model training complete!")
 model_filename = 'scam_model.pkl'
 with open(model_filename, 'wb') as f:
     pickle.dump(model, f)
-print(f"💾 Model ko '{model_filename}' naam se save kar diya gaya hai.")
-print("Ab aap is file ko App ya Website mein use kar sakte hain.")
+# model is saved as 'scam_model.pkl' , we wil use it in future for predictions
 
 # ---------------------------------------------------------
 # STEP 4: TESTING
@@ -107,9 +100,9 @@ print("Ab aap is file ko App ya Website mein use kar sakte hain.")
 def check_scam(text_message):
     prediction = model.predict([text_message])[0]
     if prediction == 1:
-        return "🚨 SCAM ALERT! (Savdhaan Rahein)"
+        return "SCAM ALERT! (Savdhaan Rahein)"
     else:
-        return "✅ Safe Message"
+        return " Safe Message"
 
 print("\n--- Live Testing Results (Naye Messages) ---")
 test_messages = [
