@@ -49,7 +49,7 @@ The system follows a Client-Server architecture:
 ### AI Models
 
 - **Online:** Llama-3.3-70b via Groq API (High accuracy, context-aware).
-- **Offline:** Scikit-learn Multinomial Naive Bayes (Low latency, keyword-focused).
+- **Offline:** NLP with Random forest and linear regression (Low latency, keyword-focused).
 
 ---
 
