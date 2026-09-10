@@ -1,12 +1,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/> <!-- REQUIRED FOR MIC -->
     <uses-permission android:name="android.permission.VIBRATE"/>      <!-- REQUIRED FOR ALERTS -->
+    <!-- Needed to force speakerphone on during live call monitoring. Android
+         blocks third-party access to the call audio stream itself, so routing
+         the call through the loudspeaker is the only way the microphone can
+         pick up the CALLER's side as well as the user's. -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <!-- Detect when a call starts/ends so monitoring can begin automatically. -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <application
         android:label="scam_shield_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true"
         >
         <activity
             android:name=".MainActivity"
@@ -29,7 +36,6 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-            android:usesCleartextTraffic="true"
         </activity>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->

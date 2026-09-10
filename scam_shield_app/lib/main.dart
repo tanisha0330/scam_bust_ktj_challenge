@@ -37,35 +37,42 @@ class ScamShieldApp extends StatelessWidget {
 }
 
 // --- TRANSLATION DATA ---
+// Scope note: English and Hindi only. Bengali and Tamil were removed because
+// the scam-detection model is trained exclusively on English and romanised
+// Hinglish -- it has never seen a Bengali or Tamil scam. Offering those
+// languages in the UI implied a protection level the model cannot deliver.
 class _AppTranslations {
   static final Map<String, Map<String, String>> _values = {
-    'app_title': {'en': 'Scam Shield', 'hi': 'स्कैम सुरक्षा', 'bn': 'স্ক্যাম শিল্ড', 'ta': 'மோசடி பாதுகாப்பு'},
-    'sms_tab': {'en': 'SMS Shield', 'hi': 'संदेश सुरक्षा', 'bn': 'এসএমএস সুরক্ষা', 'ta': 'குறுஞ்செய்தி'},
-    'call_tab': {'en': 'Call Shield', 'hi': 'कॉल सुरक्षा', 'bn': 'কল সুরক্ষা', 'ta': 'அழைப்பு'},
-    'settings': {'en': 'Settings', 'hi': 'सेटिंग्स', 'bn': 'সেটিংস', 'ta': 'அமைப்புகள்'},
+    'app_title': {'en': 'Scam Shield', 'hi': 'स्कैम सुरक्षा'},
+    'sms_tab': {'en': 'SMS Shield', 'hi': 'संदेश सुरक्षा'},
+    'call_tab': {'en': 'Call Shield', 'hi': 'कॉल सुरक्षा'},
+    'settings': {'en': 'Settings', 'hi': 'सेटिंग्स'},
     // SMS Screen
-    'trusted_contact': {'en': 'Trusted Contact (Phone)', 'hi': 'भरोसेमंद साथी (फोन)', 'bn': 'বিশ্বস্ত যোগাযোগ', 'ta': 'நம்பகமான எண்'},
-    'paste_msg': {'en': 'Paste suspicious text here...', 'hi': 'शक वाला मैसेज यहाँ पेस्ट करें...', 'bn': 'সন্দেহজনক টেক্সট এখানে দিন...', 'ta': 'சந்தேகத்திற்கிடமான செய்தியை இங்கே ஒட்டவும்'},
-    'check_btn': {'en': 'CHECK SAFETY', 'hi': 'सुरक्षा जांचें', 'bn': 'নিরাপত্তা যাচাই', 'ta': 'பாதுகாப்பை சோதிக்கவும்'},
-    'scanning': {'en': 'Scanning...', 'hi': 'जांच जारी...', 'bn': 'স্ক্যান করা হচ্ছে...', 'ta': 'ஸ்கேன் செய்கிறது...'},
-    'family_notified': {'en': 'Family Alerted Automatically', 'hi': 'परिवार को सूचित कर दिया गया है', 'bn': 'পরিবারকে জানানো হয়েছে', 'ta': 'குடும்பத்திற்கு அறிவிக்கப்பட்டது'},
-    'safe_msg': {'en': 'SAFE MESSAGE', 'hi': 'सुरक्षित मैसेज', 'bn': 'নিরাপদ বার্তা', 'ta': 'பாதுகாப்பான செய்தி'},
-    'scam_alert': {'en': 'SCAM ALERT!', 'hi': 'स्कैम अलर्ट!', 'bn': 'স্ক্যাম সতর্কতা!', 'ta': 'மோசடி எச்சரிக்கை!'},
-    'send_wa': {'en': 'Alert via WhatsApp', 'hi': 'WhatsApp पर बतायें', 'bn': 'WhatsApp বার্তা', 'ta': 'வாட்ஸ்அப்'},
-    'send_sms': {'en': 'Alert via SMS', 'hi': 'SMS भेजें', 'bn': 'SMS পাঠান', 'ta': 'குறுஞ்செய்தி'},
+    'trusted_contact': {'en': 'Trusted Contact (Phone)', 'hi': 'भरोसेमंद साथी (फोन)'},
+    'paste_msg': {'en': 'Paste suspicious text here...', 'hi': 'शक वाला मैसेज यहाँ पेस्ट करें...'},
+    'check_btn': {'en': 'CHECK SAFETY', 'hi': 'सुरक्षा जांचें'},
+    'scanning': {'en': 'Scanning...', 'hi': 'जांच जारी...'},
+    'family_notified': {'en': 'Family Alerted Automatically', 'hi': 'परिवार को सूचित कर दिया गया है'},
+    'safe_msg': {'en': 'SAFE MESSAGE', 'hi': 'सुरक्षित मैसेज'},
+    'scam_alert': {'en': 'SCAM ALERT!', 'hi': 'स्कैम अलर्ट!'},
+    'suspicious_msg': {'en': 'BE CAREFUL', 'hi': 'सावधान रहें'},
+    'suspicious_advice': {
+      'en': 'This could be genuine, but we are not sure. Do not pay or share any code. Check with family first.',
+      'hi': 'यह असली हो सकता है, पर हमें पक्का नहीं पता। पैसे या कोई कोड न दें। पहले परिवार से पूछें।'
+    },
     // Call Screen
-    'call_sim_title': {'en': 'Call Simulator', 'hi': 'कॉल सिमुलेटर', 'bn': 'কল সিমুলেটর', 'ta': 'அழைப்பு பாவனை'},
-    'enter_num': {'en': 'Enter Phone Number', 'hi': 'फोन नंबर दर्ज करें', 'bn': 'ফোন নম্বর লিখুন', 'ta': 'தொலைபேசி எண்ணை உள்ளிடவும்'},
-    'sim_btn': {'en': 'SIMULATE INCOMING CALL', 'hi': 'कॉल शुरू करें (डेमो)', 'bn': 'ইনকামিং কল', 'ta': 'அழைப்பைத் தொடங்கவும்'},
-    'live_monitor_btn': {'en': 'START LIVE MONITOR', 'hi': 'लाइव मॉनिटर शुरू करें', 'bn': 'লাইভ মনিটর शुरू', 'ta': 'லைவ் மானிட்டர்'},
-    'protect_dialog': {'en': 'Activate AI protection?', 'hi': 'AI सुरक्षा चालू करें?', 'bn': 'AI সুরক্ষা চালু করবেন?', 'ta': 'AI பாதுகாப்பை செயல்படுத்தவா?'},
-    'yes_protect': {'en': 'YES, PROTECT', 'hi': 'हाँ, रक्षा करें', 'bn': 'হ্যাঁ, রক্ষা করুন', 'ta': 'ஆம்'},
+    'call_sim_title': {'en': 'Call Simulator', 'hi': 'कॉल सिमुलेटर'},
+    'enter_num': {'en': 'Enter Phone Number', 'hi': 'फोन नंबर दर्ज करें'},
+    'sim_btn': {'en': 'SIMULATE INCOMING CALL', 'hi': 'कॉल शुरू करें (डेमो)'},
+    'live_monitor_btn': {'en': 'START LIVE MONITOR', 'hi': 'लाइव मॉनिटर शुरू करें'},
+    'protect_dialog': {'en': 'Activate AI protection?', 'hi': 'AI सुरक्षा चालू करें?'},
+    'yes_protect': {'en': 'YES, PROTECT', 'hi': 'हाँ, रक्षा करें'},
     // Live Screen
-    'live_shield': {'en': 'Live Shield', 'hi': 'लाइव रक्षा', 'bn': 'লাইভ শিল্ড', 'ta': 'நேரடி பாதுகாப்பு'},
-    'listening': {'en': 'Listening...', 'hi': 'सुन रहा हूँ...', 'bn': 'শুনছি...', 'ta': 'கேட்கிறது...'},
-    'risk_safe': {'en': 'Safe', 'hi': 'सुरक्षित', 'bn': 'নিরাপদ', 'ta': 'பாதுகாப்பான'},
-    'risk_danger': {'en': 'DANGER', 'hi': 'खतरा', 'bn': 'বিপদ', 'ta': 'ஆபத்து'},
-    'mic_denied': {'en': 'Mic Permission Denied', 'hi': 'माइक अनुमति अस्वीकृत', 'bn': 'মাইক অনুমতি নেই', 'ta': 'மைக் அனுமதி மறுக்கப்பட்டது'},
+    'live_shield': {'en': 'Live Shield', 'hi': 'लाइव रक्षा'},
+    'listening': {'en': 'Listening...', 'hi': 'सुन रहा हूँ...'},
+    'risk_safe': {'en': 'Safe', 'hi': 'सुरक्षित'},
+    'risk_danger': {'en': 'DANGER', 'hi': 'खतरा'},
+    'mic_denied': {'en': 'Mic Permission Denied', 'hi': 'माइक अनुमति अस्वीकृत'},
   };
 
   static String t(String key, String lang) {
@@ -82,40 +89,22 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
   String _currentLang = 'en'; // Default Language
-  String _apiMode = 'auto'; // NEW: Toggle between auto, online, offline
-  final TextEditingController ipController = TextEditingController(text: "10.145.73.107:8000"); 
+  final TextEditingController ipController = TextEditingController(text: "10.145.73.107:8000");
 
   @override
   Widget build(BuildContext context) {
     final List<Widget> screens = [
-      MessageShieldScreen(ipController: ipController, lang: _currentLang, mode: _apiMode),
-      CallShieldScreen(ipController: ipController, lang: _currentLang, mode: _apiMode),
+      MessageShieldScreen(ipController: ipController, lang: _currentLang),
+      CallShieldScreen(ipController: ipController, lang: _currentLang),
     ];
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(_currentIndex == 0 
-          ? _AppTranslations.t('sms_tab', _currentLang) 
+        title: Text(_currentIndex == 0
+          ? _AppTranslations.t('sms_tab', _currentLang)
           : _AppTranslations.t('call_tab', _currentLang)
         ),
         actions: [
-          // MODE TOGGLE
-          DropdownButton<String>(
-            value: _apiMode,
-            dropdownColor: Colors.teal.shade700,
-            icon: const Icon(Icons.cloud_sync, color: Colors.white),
-            underline: Container(),
-            style: const TextStyle(color: Colors.white, fontSize: 14),
-            items: const [
-              DropdownMenuItem(value: 'auto', child: Text("Auto")),
-              DropdownMenuItem(value: 'online', child: Text("Online")),
-              DropdownMenuItem(value: 'offline', child: Text("Offline")),
-            ],
-            onChanged: (val) {
-              if (val != null) setState(() => _apiMode = val);
-            },
-          ),
-          const SizedBox(width: 10),
           // LANGUAGE
           DropdownButton<String>(
             value: _currentLang,
@@ -126,8 +115,6 @@ class _MainScreenState extends State<MainScreen> {
             items: const [
               DropdownMenuItem(value: 'en', child: Text("ENG")),
               DropdownMenuItem(value: 'hi', child: Text("हिन्दी")),
-              DropdownMenuItem(value: 'bn', child: Text("বাংলা")),
-              DropdownMenuItem(value: 'ta', child: Text("தமிழ்")),
             ],
             onChanged: (val) {
               if (val != null) setState(() => _currentLang = val);
@@ -179,8 +166,7 @@ class _MainScreenState extends State<MainScreen> {
 class MessageShieldScreen extends StatefulWidget {
   final TextEditingController ipController;
   final String lang;
-  final String mode; // NEW
-  const MessageShieldScreen({super.key, required this.ipController, required this.lang, required this.mode});
+  const MessageShieldScreen({super.key, required this.ipController, required this.lang});
 
   @override
   State<MessageShieldScreen> createState() => _MessageShieldScreenState();
@@ -262,27 +248,52 @@ class _MessageShieldScreenState extends State<MessageShieldScreen> {
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({
           "message": message,
-          "mode": widget.mode, // SENDING MODE
           "trusted_contact": _contactController.text.isNotEmpty ? _contactController.text : "Not Provided"
         }),
       ).timeout(const Duration(seconds: 20)); // Increased Timeout to 20s
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        bool isScam = data['is_scam'];
-        String title = isScam 
-          ? _AppTranslations.t('scam_alert', widget.lang) 
-          : _AppTranslations.t('safe_msg', widget.lang);
-          
+        if (data['is_scam'] is! bool) {
+          setState(() {
+            _result = "⚠️ Unexpected server response. Please try again.";
+            _resultColor = Colors.orange;
+          });
+          return;
+        }
+        // Three-way verdict; fall back to the old boolean for older servers.
+        final String verdict = (data['verdict'] as String?) ??
+            ((data['is_scam'] as bool) ? 'scam' : 'safe');
+        final bool isScam = verdict == 'scam';
+        final bool isSuspicious = verdict == 'suspicious';
+
+        String title;
+        Color colour;
+        if (isScam) {
+          title = _AppTranslations.t('scam_alert', widget.lang);
+          colour = Colors.red.shade700;
+        } else if (isSuspicious) {
+          title = _AppTranslations.t('suspicious_msg', widget.lang);
+          colour = Colors.amber.shade800;
+        } else {
+          title = _AppTranslations.t('safe_msg', widget.lang);
+          colour = Colors.green.shade700;
+        }
+
         setState(() {
-          _reason = data['reason'];
-          _result = "$title\n\n$_reason\n(Mode: ${widget.mode})";
-          _resultColor = isScam ? Colors.red.shade700 : Colors.green.shade700;
+          _reason = (data['reason'] as String?) ?? "";
+          final advice = isSuspicious
+              ? "\n\n${_AppTranslations.t('suspicious_advice', widget.lang)}"
+              : "";
+          _result = "$title\n\n$_reason$advice";
+          _resultColor = colour;
           _isScamDetected = isScam;
         });
 
-        // --- AUTOMATIC ACTION ---
-        // Agar Scam hai aur Contact saved hai, to turant alert trigger karo
+        // Auto-alert the family contact ONLY on a confirmed scam. A
+        // "suspicious" verdict means the two analysis tiers disagreed, so
+        // messaging relatives about it would cry wolf on genuinely ambiguous
+        // (often legitimate) financial messages.
         if (isScam && _contactController.text.isNotEmpty) {
           _triggerAutoAlert(_reason);
         }
@@ -358,7 +369,17 @@ class _MessageShieldScreenState extends State<MessageShieldScreen> {
               borderRadius: BorderRadius.circular(10)
             ),
             child: Column(children: [
-              Icon(_resultColor == Colors.red.shade700 ? Icons.warning : _resultColor == Colors.redAccent || _resultColor == Colors.orange ? Icons.wifi_off : Icons.check_circle, size: 50, color: _resultColor),
+              Icon(
+                _resultColor == Colors.red.shade700
+                    ? Icons.warning
+                    : _resultColor == Colors.amber.shade800
+                        ? Icons.help_outline          // suspicious: caution, not "all clear"
+                        : (_resultColor == Colors.redAccent || _resultColor == Colors.orange)
+                            ? Icons.wifi_off
+                            : Icons.check_circle,
+                size: 50,
+                color: _resultColor,
+              ),
               const SizedBox(height: 10),
               Text(_result, textAlign: TextAlign.center, style: TextStyle(fontSize: 16, color: _resultColor, fontWeight: FontWeight.bold)),
               
@@ -393,8 +414,7 @@ class _MessageShieldScreenState extends State<MessageShieldScreen> {
 class CallShieldScreen extends StatefulWidget {
   final TextEditingController ipController;
   final String lang;
-  final String mode; // NEW
-  const CallShieldScreen({super.key, required this.ipController, required this.lang, required this.mode});
+  const CallShieldScreen({super.key, required this.ipController, required this.lang});
 
   @override
   State<CallShieldScreen> createState() => _CallShieldScreenState();
@@ -420,7 +440,10 @@ class _CallShieldScreenState extends State<CallShieldScreen> {
       ).timeout(const Duration(seconds: 10)); // Increased Timeout to 10s
 
       if (response.statusCode == 200) {
-        _showProtectDialog(phone, "Unknown Caller (Server Verified)", false);
+        final data = jsonDecode(response.body);
+        final bool isSpam = data['is_known_spam'] == true;
+        final String message = (data['message'] as String?) ?? "Unknown Caller (Server Verified)";
+        _showProtectDialog(phone, message, isSpam);
       }
     } on TimeoutException catch (_) {
       // Fallback if timeout
@@ -452,6 +475,8 @@ class _CallShieldScreenState extends State<CallShieldScreen> {
           children: [
             Text("Incoming Call: $phone", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             const SizedBox(height: 10),
+            Text(message),
+            const SizedBox(height: 10),
             Text(_AppTranslations.t('protect_dialog', widget.lang)),
           ],
         ),
@@ -466,7 +491,6 @@ class _CallShieldScreenState extends State<CallShieldScreen> {
               Navigator.push(context, MaterialPageRoute(builder: (context) => LiveCallScreen(
                 ipController: widget.ipController,
                 lang: widget.lang,
-                mode: widget.mode,
               )));
             },
           ),
@@ -512,7 +536,6 @@ class _CallShieldScreenState extends State<CallShieldScreen> {
               onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => LiveCallScreen(
                 ipController: widget.ipController,
                 lang: widget.lang,
-                mode: widget.mode,
               ))),
               icon: const Icon(Icons.record_voice_over),
               label: Text(_AppTranslations.t('live_monitor_btn', widget.lang)),
@@ -531,8 +554,7 @@ class _CallShieldScreenState extends State<CallShieldScreen> {
 class LiveCallScreen extends StatefulWidget {
   final TextEditingController ipController;
   final String lang;
-  final String mode; // NEW
-  const LiveCallScreen({super.key, required this.ipController, required this.lang, required this.mode});
+  const LiveCallScreen({super.key, required this.ipController, required this.lang});
 
   @override
   State<LiveCallScreen> createState() => _LiveCallScreenState();
@@ -602,7 +624,6 @@ class _LiveCallScreenState extends State<LiveCallScreen> with SingleTickerProvid
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({
           "transcript": transcript,
-          "mode": widget.mode // Sending Mode
         }),
       );
 

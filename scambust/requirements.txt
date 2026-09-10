@@ -1,0 +1,21 @@
+# --- Web framework / server ---
+django>=5.0,<6.0
+psycopg2-binary>=2.9
+python-dotenv>=1.0
+
+# --- LLM (Groq via OpenAI-compatible client) ---
+openai>=1.40
+
+# --- ML / fine-tuning ---
+torch>=2.4
+transformers>=4.44
+datasets>=2.20
+accelerate>=0.33
+scikit-learn>=1.5
+textblob>=0.18
+pandas>=2.2
+numpy>=1.26
+huggingface_hub>=0.24
+
+# --- misc ---
+requests>=2.32

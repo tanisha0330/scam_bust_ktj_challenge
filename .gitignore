@@ -1,4 +1,9 @@
 
+### Scam Shield ML backend ###
+scambust/ml/data/
+scambust/ml/models_out/
+scambust/dataset/*.pkl
+
 ### Flutter ###
 # Flutter/Dart/Pub related
 **/doc/api/
