@@ -22,6 +22,7 @@ Usage:
 """
 import json
 import os
+import sys
 import time
 
 import numpy as np
@@ -34,7 +35,10 @@ from .common import compute_metrics
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(HERE, "..", "data")
-MODEL_DIR = os.path.join(HERE, "..", "models_out", "unified_classifier")
+# Which Tier-1 to simulate the cascade over. Defaults to the production
+# model; pass a directory name as argv[1] to compare an older variant.
+_MODEL_NAME = sys.argv[1] if len(sys.argv) > 1 else "balanced_classifier"
+MODEL_DIR = os.path.join(HERE, "..", "models_out", _MODEL_NAME)
 MAX_LENGTH, BATCH_SIZE = 256, 32
 _device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -147,7 +151,7 @@ def main():
                          "accuracy": a, "precision": p, "recall": r, "f1": f})
         results["cascade"] = casc
 
-    out = os.path.join(HERE, "..", "models_out", "cascade_tier2_eval.json")
+    out = os.path.join(HERE, "..", "models_out", f"cascade_tier2_eval_{_MODEL_NAME}.json")
     with open(out, "w") as f:
         json.dump(results, f, indent=2)
     print(f"\nSaved -> {out}")
